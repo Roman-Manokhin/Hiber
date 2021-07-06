@@ -34,16 +34,22 @@ public class UserDaoImp implements UserDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public User getUserFromCarParameters(String model, int series) {
+    public User getUserFromCarParameters(String model, int series) throws NullPointerException {
         String HQL = "from Car car LEFT OUTER JOIN FETCH car.user WHERE car.model=:model and car.series=:series";
 
         Car car = sessionFactory.getCurrentSession()
-                    .createQuery(HQL, Car.class)
-                    .setParameter("model", model)
-                    .setParameter("series", series)
-                    .uniqueResult();
+                .createQuery(HQL, Car.class)
+                .setParameter("model", model)
+                .setParameter("series", series)
+                .uniqueResult();
 
-        return car.getUser();
+        User user = null;
+        try {
+            user = car.getUser();
+        } catch (NullPointerException e) {
+            System.err.println("Машины с такими параметрами нет");
+        }
+        return user;
     }
 
 
