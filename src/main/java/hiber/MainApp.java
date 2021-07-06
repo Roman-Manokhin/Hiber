@@ -35,7 +35,7 @@ public class MainApp {
 
         userService.listUsers().forEach(System.out::println);
 
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("-------Получаем User по параметрам Car-------");
 
         System.out.println(userService.getUserFromCarParameters("model3", 3));
 

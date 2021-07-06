@@ -1,6 +1,5 @@
 package hiber.dao;
 
-import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ public class UserDaoImp implements UserDao {
         sessionFactory.getCurrentSession().save(user);
     }
 
-
     @Override
     @SuppressWarnings("unchecked")
     public List<User> listUsers() {
@@ -35,21 +33,13 @@ public class UserDaoImp implements UserDao {
     @Override
     @SuppressWarnings("unchecked")
     public User getUserFromCarParameters(String model, int series) {
-        String HQL = "from Car car LEFT OUTER JOIN FETCH car.user WHERE car.model=:model and car.series=:series";
+        String HQL = "from User user LEFT OUTER JOIN FETCH user.car car WHERE car.model=:model and car.series=:series";
 
-        Car car = sessionFactory.getCurrentSession()
-                .createQuery(HQL, Car.class)
+        return sessionFactory.getCurrentSession()
+                .createQuery(HQL, User.class)
                 .setParameter("model", model)
                 .setParameter("series", series)
                 .uniqueResult();
-
-        User user = null;
-        try {
-            user = car.getUser();
-        } catch (NullPointerException e) {
-            System.err.println("Машины с такими параметрами нет");
-        }
-        return user;
     }
 
 
