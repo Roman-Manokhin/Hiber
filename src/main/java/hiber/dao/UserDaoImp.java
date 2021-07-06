@@ -34,7 +34,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public User getUserFromCarParameters(String model, int series) throws NullPointerException {
+    public User getUserFromCarParameters(String model, int series) {
         String HQL = "from Car car LEFT OUTER JOIN FETCH car.user WHERE car.model=:model and car.series=:series";
 
         Car car = sessionFactory.getCurrentSession()
