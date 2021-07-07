@@ -32,7 +32,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public User getUserFromCarParameters(String model, int series) {
+    public User getUserFromCarModelAndSeries(String model, int series) {
         String HQL = "from User user LEFT OUTER JOIN FETCH user.car car WHERE car.model=:model and car.series=:series";
 
         return sessionFactory.getCurrentSession()

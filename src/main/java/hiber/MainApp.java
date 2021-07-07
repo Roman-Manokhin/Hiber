@@ -37,7 +37,7 @@ public class MainApp {
 
         System.out.println("-------Получаем User по параметрам Car-------");
 
-        System.out.println(userService.getUserFromCarParameters("model3", 3));
+        System.out.println(userService.getUserFromCarModelAndSeries("model3", 3));
 
         context.close();
     }
